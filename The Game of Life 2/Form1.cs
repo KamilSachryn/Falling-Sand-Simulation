@@ -23,7 +23,7 @@ namespace The_Game_of_Life_2
         int selectStartX = 0;
         int selectStartY = 0;
 
-        List<List<bool>> savedBoard = new List<List<bool>>();
+        List<List<Particle>> savedBoard = new List<List<Particle>>();
 
         public Form1()
         {
@@ -47,7 +47,7 @@ namespace The_Game_of_Life_2
                 {
                     for (int height = 0; height < board.width; height++)
                     {
-                        if (board.board[height][width])
+                        if (board.board[height][width].val)
                         {
                             Rectangle cellRect = new Rectangle(new Point(height * cellSizeMultiplier, width * cellSizeMultiplier), cellSize);
                             gfx.FillRectangle(brush, cellRect);
@@ -148,12 +148,13 @@ namespace The_Game_of_Life_2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            savedBoard = Board.DeepCopy(board.board);
+            savedBoard = Board.kamiClone(board.board);
+            //savedBoard = Board.DeepCopy(board.board);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            board.board = Board.DeepCopy(savedBoard);
+            board.board = Board.kamiClone(savedBoard);
             Render();
         }
 
@@ -167,9 +168,9 @@ namespace The_Game_of_Life_2
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    if (board.board[coordinates.X][coordinates.Y])
+                    if (board.board[coordinates.X][coordinates.Y].val)
                     {
-                        board.board[coordinates.X][coordinates.Y] = false;
+                        board.board[coordinates.X][coordinates.Y].val = false;
                     }
                     else
                     {
@@ -248,7 +249,7 @@ namespace The_Game_of_Life_2
                         if (Control.ModifierKeys == Keys.Shift)
                             enable = false;
 
-                        board.board[row][col] = enable;
+                        board.board[row][col].val = enable;
                     }
                 }
             }
@@ -258,7 +259,7 @@ namespace The_Game_of_Life_2
                 {
                     case MouseButtons.Left:
 
-                        board.board[coordinates.X][coordinates.Y] = true;
+                        board.board[coordinates.X][coordinates.Y].val = true;
                         break;
 
                 }

@@ -19,7 +19,7 @@ namespace The_Game_of_Life_2
         
 
         public int scrollValue = 1;
-        public List<List<bool>> board = new List<List<bool>>();
+        public List<List<Particle>> board = new List<List<Particle>>();
         Random rand = new Random();
 
         public Board()
@@ -33,11 +33,11 @@ namespace The_Game_of_Life_2
 
             for (int i = 0; i < width; i++)
             {
-                List<bool> newCol = new List<bool>();
+                List<Particle> newCol = new List<Particle>();
                 board.Add(newCol);
                 for (int j = 0; j < height; j++)
                 {
-                    board[i].Add(false);
+                    board[i].Add(new Particle(false));
 
                 }
             }
@@ -45,20 +45,21 @@ namespace The_Game_of_Life_2
 
         public void Tick()
         {
-            List<List<bool>> newBoard = DeepCopy(board);
+            List<List<Particle>> newBoard = kamiClone(board);
+            //List<List<Particle>> newBoard = DeepCopy(board);
 
 
             for(int i = width - 1; i >= 0; i--)
             {
                 for(int j = height -1 ; j >= 0;j--)
                 { 
-                    if(board[i][j])
+                    if(board[i][j].val)
                     {
                         if(ableToGoDown(i, j))
                         {
-                            board[i][j] = false;
-                            newBoard[i][j] = false;
-                            board[i][j+1] = true;
+                            board[i][j].val = false;
+                            newBoard[i][j].val = false;
+                            board[i][j+1].val = true;
                         }
                         else
                         {
@@ -66,15 +67,15 @@ namespace The_Game_of_Life_2
                             {
                                 if(ableToGoBL(i, j))
                                 {
-                                    board[i][j] = false;
-                                    newBoard[i][j] = false;
-                                    board[i-1][j+1] = true;
+                                    board[i][j].val = false;
+                                    newBoard[i][j].val = false;
+                                    board[i-1][j+1].val = true;
                                 }
                                 else if(ableToGoBR(i, j))
                                 {
-                                    board[i][j] = false;
-                                    newBoard[i][j] = false;
-                                    board[i+1][j+1] = true;
+                                    board[i][j].val = false;
+                                    newBoard[i][j].val = false;
+                                    board[i+1][j+1].val = true;
                                 
                                 }
                             }
@@ -82,15 +83,15 @@ namespace The_Game_of_Life_2
                             {
                                 if(ableToGoBR(i, j))
                                 {
-                                    board[i][j] = false;
-                                    newBoard[i][j] = false;
-                                    board[i+1][j+1] = true;
+                                    board[i][j].val = false;
+                                    newBoard[i][j].val = false;
+                                    board[i+1][j+1].val = true;
                                 }
                                 else if(ableToGoBL(i, j))
                                 {
-                                    board[i][j] = false;
-                                    newBoard[i][j] = false;
-                                    board[i-1][j+1] = true;
+                                    board[i][j].val = false;
+                                    newBoard[i][j].val = false;
+                                    board[i-1][j+1].val = true;
                                 }
                             }
 
@@ -109,7 +110,7 @@ namespace The_Game_of_Life_2
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if(board[i][j])
+                    if(board[i][j].val)
                     {
                       
 
@@ -121,16 +122,16 @@ namespace The_Game_of_Life_2
 
         public bool ableToGoDown(int x, int y)
         {
-            return (y + 1 < height && !board[x][y + 1]);
+            return (y + 1 < height && !board[x][y + 1].val);
         }
 
         public bool ableToGoBL(int x, int y)
         {
-            return (y+1 < height && x - 1 >= 0 && !board[x - 1][y + 1]);
+            return (y+1 < height && x - 1 >= 0 && !board[x - 1][y + 1].val);
         }
         public bool ableToGoBR(int x, int y)
         {
-            return (y+1 < height && x + 1 < width && !board[x + 1][y + 1]);
+            return (y+1 < height && x + 1 < width && !board[x + 1][y + 1].val);
         }
 
 
@@ -154,7 +155,7 @@ namespace The_Game_of_Life_2
                     }
                     else
                     {
-                        if( board[x+i][y+j] )
+                        if( board[x+i][y+j].val )
                         {
                             numAdj++;
                         }
@@ -188,6 +189,25 @@ namespace The_Game_of_Life_2
             return result;
         }
 
+        public static List<List<Particle>> kamiClone(List<List<Particle>> old)
+        {
+            List<List<Particle>> clone = new List<List<Particle>>();
+
+            foreach (List<Particle> i in old)
+            {
+                List<Particle> clonedList = new List<Particle>();
+                foreach(Particle p in i)
+                {
+                    Particle clonedParticle = new Particle(p.x, p.y, p.val);
+                    clonedList.Add(clonedParticle);
+                }
+                clone.Add(clonedList);
+            }
+
+
+
+            return clone;
+        }
     }
 
     
