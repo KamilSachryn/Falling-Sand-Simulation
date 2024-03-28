@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Schema;
 
 namespace The_Game_of_Life_2
 {
@@ -14,7 +15,6 @@ namespace The_Game_of_Life_2
         public int width = 780;
         public int height = 360;
         
-
 
         
 
