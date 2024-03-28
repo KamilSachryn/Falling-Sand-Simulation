@@ -12,8 +12,8 @@ namespace The_Game_of_Life_2
 {
     class Board
     {
-        public int width = 780;
-        public int height = 360;
+        public int width = 780/4;
+        public int height = 360/2;
         
 
         
@@ -37,7 +37,7 @@ namespace The_Game_of_Life_2
                 board.Add(newCol);
                 for (int j = 0; j < height; j++)
                 {
-                    board[i].Add(new Particle(false));
+                    board[i].Add(new Particle(i, j, false));
 
                 }
             }
@@ -163,8 +163,7 @@ namespace The_Game_of_Life_2
                 }
             }
 
-            if(numAdj != 0)
-                Console.WriteLine(numAdj);
+
             return numAdj;
 
 

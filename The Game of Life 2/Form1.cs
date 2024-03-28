@@ -67,7 +67,7 @@ namespace The_Game_of_Life_2
            /* MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             coordinates = new Point(coordinates.X / cellSizeMultiplier, coordinates.Y / cellSizeMultiplier);
-            Console.WriteLine(coordinates);
+            //Console.WriteLine(coordinates);
 
             switch (e.Button)
             {
@@ -105,7 +105,7 @@ namespace The_Game_of_Life_2
 
         private void Form1_Scroll(object sender, ScrollEventArgs e)
         {
-            Console.WriteLine("op");
+            //Console.WriteLine("op");
             if (e.OldValue > e.NewValue)
             {
 
@@ -163,7 +163,7 @@ namespace The_Game_of_Life_2
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             coordinates = new Point(coordinates.X / cellSizeMultiplier, coordinates.Y / cellSizeMultiplier);
-            Console.WriteLine(coordinates);
+            //Console.WriteLine(coordinates);
 
             switch (e.Button)
             {
@@ -195,7 +195,7 @@ namespace The_Game_of_Life_2
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             coordinates = new Point(coordinates.X / cellSizeMultiplier, coordinates.Y / cellSizeMultiplier);
-            Console.WriteLine(coordinates);
+            //Console.WriteLine(coordinates);
             switch (e.Button)
             {
                 case MouseButtons.Left:
@@ -214,7 +214,7 @@ namespace The_Game_of_Life_2
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             coordinates = new Point(coordinates.X / cellSizeMultiplier, coordinates.Y / cellSizeMultiplier);
-            Console.WriteLine(coordinates);
+            //Console.WriteLine(coordinates);
 
 
             if (selectingMany)
@@ -244,7 +244,7 @@ namespace The_Game_of_Life_2
                         if (col >= board.height)
                             continue;
 
-                        Console.WriteLine(String.Format("x1: {0}, y1: {1}, x2: {2}, y2: {3}", tempStartX, tempStartY, tempEndX, tempEndY));
+                        //Console.WriteLine(String.Format("x1: {0}, y1: {1}, x2: {2}, y2: {3}", tempStartX, tempStartY, tempEndX, tempEndY));
                         bool enable = true;
                         if (Control.ModifierKeys == Keys.Shift)
                             enable = false;

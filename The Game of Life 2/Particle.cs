@@ -13,21 +13,11 @@ namespace The_Game_of_Life_2
         public int y;
         public bool val;
 
-        public Particle()
-        {
-            x = 0;
-            y = 0;
-            val = false;
-        }
-        public Particle(bool val) : this()
-        {
-            this.val = val;
-        }
-
-        public Particle(int x, int y, bool val) : this(val)
+        public Particle(int x, int y, bool val)
         {
             this.x = x;
-            this.y = y;            
+            this.y = y;    
+            this.val = val;
         }
 
     }
