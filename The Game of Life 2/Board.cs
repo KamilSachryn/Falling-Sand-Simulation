@@ -21,10 +21,29 @@ namespace The_Game_of_Life_2
         public int scrollValue = 1;
         public List<List<Particle>> board = new List<List<Particle>>();
         Random rand = new Random();
+        public List<Particle> particles = new List<Particle>();
+
+
+        ParticleSameCoords comparer = new ParticleSameCoords();
 
         public Board()
         {
             resize();
+
+            List<List<Particle>> newBoard = new List<List<Particle>>();
+
+            for (int i = width - 1; i >= 0; i--)
+            {
+                List<Particle> temp = new List<Particle>();
+                for (int j = height - 1; j >= 0; j--)
+                {
+                    temp.Add(null);
+
+                }
+                newBoard.Add(temp);
+            }
+
+            board = newBoard;
         }
 
         public void resize()
@@ -45,93 +64,92 @@ namespace The_Game_of_Life_2
 
         public void Tick()
         {
-            List<List<Particle>> newBoard = kamiClone(board);
+
+
+
+
+            //List<List<Particle>> newBoard = kamiClone(board);
+            //List<List<Particle>> prototypeBoard = new List<List<Particle>>();
             //List<List<Particle>> newBoard = DeepCopy(board);
 
-
-            for(int i = width - 1; i >= 0; i--)
+            foreach (Particle p in particles)
             {
-                for(int j = height -1 ; j >= 0;j--)
-                { 
-                    if(board[i][j].val)
-                    {
-                        if(ableToGoDown(i, j))
-                        {
-                            board[i][j].val = false;
-                            newBoard[i][j].val = false;
-                            board[i][j+1].val = true;
-                        }
-                        else
-                        {
-                            if(rand.NextDouble() >0.5 )
-                            {
-                                if(ableToGoBL(i, j))
-                                {
-                                    board[i][j].val = false;
-                                    newBoard[i][j].val = false;
-                                    board[i-1][j+1].val = true;
-                                }
-                                else if(ableToGoBR(i, j))
-                                {
-                                    board[i][j].val = false;
-                                    newBoard[i][j].val = false;
-                                    board[i+1][j+1].val = true;
-                                
-                                }
-                            }
-                            else
-                            {
-                                if(ableToGoBR(i, j))
-                                {
-                                    board[i][j].val = false;
-                                    newBoard[i][j].val = false;
-                                    board[i+1][j+1].val = true;
-                                }
-                                else if(ableToGoBL(i, j))
-                                {
-                                    board[i][j].val = false;
-                                    newBoard[i][j].val = false;
-                                    board[i-1][j+1].val = true;
-                                }
-                            }
-
-                            
-
-
-                        }
-
-
-                    }
-                    
-                }
-
-            }
-            for(int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
+                int i = p.x;
+                int j = p.y;
+                if (ableToGoDown(p))
                 {
-                    if(board[i][j].val)
-                    {
-                      
-
-                    }                    
+                    p.y += 1;
                 }
+                else
+                {
+                    if (rand.NextDouble() > 0.5)
+                    {
+                        if (ableToGoBL(p))
+                        {
+                            p.x -= 1;
+                            p.y += 1;
+                        }
+                        else if (ableToGoBR(p))
+                        {
+
+                            p.x += 1;
+                            p.y += 1;
+
+                        }
+                    }
+                    else
+                    {
+                        if (ableToGoBR(p))
+                        {
+                            p.x += 1;
+                            p.y += 1;
+                        }
+                        else if (ableToGoBL(p))
+                        {
+                            p.x -= 1;
+                            p.y += 1;
+                        }
+                    }
+
+
+
+
+                }
+              
             }
-            //board = newBoard;
+
         }
 
         public bool ableToGoDown(int x, int y)
         {
-            return (y + 1 < height && !board[x][y + 1].val);
+            return (y + 1 < height && (board[x][y+1] == null ||!board[x][y + 1].val));
+        }
+
+        public bool ableToGoDown(Particle p)
+        {
+
+            return (p.y + 1 < height && !particles.Contains(new Particle(p.x, p.y + 1, true), comparer));
+
         }
 
         public bool ableToGoBL(int x, int y)
         {
-            return (y+1 < height && x - 1 >= 0 && !board[x - 1][y + 1].val);
+            return (y+1 < height && x - 1 >= 0 && (board[x-1][y + 1] == null ||  !board[x - 1][y + 1].val));
+            
         }
+        public bool ableToGoBL(Particle p)
+        {
+            return (p.y + 1 < height && p.x - 1 >= 0 && !particles.Contains(new Particle(p.x - 1, p.y + 1, true), comparer));
+
+        }
+        
         public bool ableToGoBR(int x, int y)
         {
-            return (y+1 < height && x + 1 < width && !board[x + 1][y + 1].val);
+            return (y+1 < height && x + 1 < width && (board[x+1][y + 1] == null || !board[x + 1][y + 1].val));
+        }
+        public bool ableToGoBR(Particle p)
+        {
+            return (p.y + 1 < height && p.x + 1 >= 0 && !particles.Contains(new Particle(p.x + 1, p.y + 1, true), comparer));
         }
 
 

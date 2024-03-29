@@ -21,4 +21,24 @@ namespace The_Game_of_Life_2
         }
 
     }
+
+    class ParticleSameCoords : EqualityComparer<Particle>
+    {
+
+        public override bool Equals(Particle x, Particle y)
+        {
+            if (x == null && y == null)
+                return true;
+            else if (x == null || y == null)
+                return false;
+
+            return (x.x == y.x && x.y == y.y);
+        }
+
+        public override int GetHashCode(Particle obj)
+        {
+            int hCode = obj.x ^ obj.y;
+            return hCode.GetHashCode();
+        }
+    }
 }

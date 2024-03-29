@@ -43,6 +43,14 @@ namespace The_Game_of_Life_2
 
                 var cellSize = new Size(1 * cellSizeMultiplier - 1, 1 * cellSizeMultiplier - 1);
 
+                foreach(Particle p in board.particles)
+                {
+                    Rectangle cellRect = new Rectangle(new Point(p.x * cellSizeMultiplier, p.y * cellSizeMultiplier), cellSize);
+                    gfx.FillRectangle(brush, cellRect);
+                }
+
+                /*
+
                 for (int width = 0; width < board.height; width++)
                 {
                     for (int height = 0; height < board.width; height++)
@@ -54,6 +62,8 @@ namespace The_Game_of_Life_2
                         }
                     }
                 }
+
+                */
 
                 pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
                 pictureBox1.Image?.Dispose();
@@ -158,6 +168,7 @@ namespace The_Game_of_Life_2
             Render();
         }
 
+        /*
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
@@ -174,6 +185,41 @@ namespace The_Game_of_Life_2
                     }
                     else
                     {
+                        dragging = true;
+                    }
+                   
+                    break;
+                case MouseButtons.Right:
+
+
+                    {
+                        selectingMany = true;
+                        selectStartX = coordinates.X;
+                        selectStartY = coordinates.Y;
+                    }
+                    break;
+            }
+        }
+        */
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+            coordinates = new Point(coordinates.X / cellSizeMultiplier, coordinates.Y / cellSizeMultiplier);
+            //Console.WriteLine(coordinates);
+
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    if (board.board[coordinates.X][coordinates.Y] == null)
+                    {
+                        //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
+                        //board.board[coordinates.X][coordinates.Y].val = false;
+                        board.particles.Remove(board.board[coordinates.X][coordinates.Y]);
+                    }
+                    else
+                    {
+                        //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
                         dragging = true;
                     }
                    
@@ -245,11 +291,16 @@ namespace The_Game_of_Life_2
                             continue;
 
                         //Console.WriteLine(String.Format("x1: {0}, y1: {1}, x2: {2}, y2: {3}", tempStartX, tempStartY, tempEndX, tempEndY));
-                        bool enable = true;
+                        //bool enable = true;
                         if (Control.ModifierKeys == Keys.Shift)
-                            enable = false;
+                        {
+                            //enable = false;
+                            board.particles.Remove(board.board[row][col]);
 
-                        board.board[row][col].val = enable;
+                        }
+
+                        board.particles.Add(new Particle(row, col, true));
+                        //board.board[row][col].val = enable;
                     }
                 }
             }
@@ -258,8 +309,9 @@ namespace The_Game_of_Life_2
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-
-                        board.board[coordinates.X][coordinates.Y].val = true;
+                        //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
+                        //board.board[coordinates.X][coordinates.Y].val = true;
+                        board.particles.Add(new Particle(coordinates.X, coordinates.Y, true));
                         break;
 
                 }
