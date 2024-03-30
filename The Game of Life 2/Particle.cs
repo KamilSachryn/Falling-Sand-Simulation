@@ -20,6 +20,12 @@ namespace The_Game_of_Life_2
             this.val = val;
         }
 
+        public Tuple<int, int> getTuple()
+        {
+            return new Tuple<int, int>(x, y);
+        }
+            
+
     }
 
     class ParticleSameCoords : EqualityComparer<Particle>

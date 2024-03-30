@@ -68,26 +68,24 @@ namespace The_Game_of_Life_2
         public void Tick()
         {
 
-
+            Dictionary<Tuple<int, int>, Particle> newDict = dict;
 
 
             //List<List<Particle>> newBoard = kamiClone(board);
             //List<List<Particle>> prototypeBoard = new List<List<Particle>>();
             //List<List<Particle>> newBoard = DeepCopy(board);
 
-            dict = new Dictionary<Tuple<int, int>, Particle>();
-            foreach(Particle p in particles)
-            {
-                dict[new Tuple<int, int>(p.x, p.y)] = p;
-            }
+
+
 
             foreach (Particle p in particles)
             {
-                int i = p.x;
-                int j = p.y;
+
                 if (ableToGoDown(p))
                 {
+                    newDict.Remove(new Tuple<int, int>(p.x, p.y));
                     p.y += 1;
+                    newDict[new Tuple<int, int>(p.x, p.y)] = p;
                 }
                 else
                 {
@@ -95,14 +93,17 @@ namespace The_Game_of_Life_2
                     {
                         if (ableToGoBL(p))
                         {
+                            newDict.Remove(new Tuple<int, int>(p.x, p.y));
                             p.x -= 1;
                             p.y += 1;
+                            newDict[new Tuple<int, int>(p.x, p.y)] = p;
                         }
                         else if (ableToGoBR(p))
                         {
-
+                            newDict.Remove(new Tuple<int, int>(p.x, p.y));
                             p.x += 1;
                             p.y += 1;
+                            newDict[new Tuple<int, int>(p.x, p.y)] = p;
 
                         }
                     }
@@ -110,13 +111,17 @@ namespace The_Game_of_Life_2
                     {
                         if (ableToGoBR(p))
                         {
+                            newDict.Remove(new Tuple<int, int>(p.x, p.y));
                             p.x += 1;
                             p.y += 1;
+                            newDict[new Tuple<int, int>(p.x, p.y)] = p;
                         }
                         else if (ableToGoBL(p))
                         {
+                            newDict.Remove(new Tuple<int, int>(p.x, p.y));
                             p.x -= 1;
                             p.y += 1;
+                            newDict[new Tuple<int, int>(p.x, p.y)] = p;
                         }
                     }
 
@@ -127,12 +132,17 @@ namespace The_Game_of_Life_2
               
             }
 
+            dict = newDict;
+
+            dict.Clear();
+
+            foreach(Tuple<int, int> t in newDict.Keys)
+            {
+                dict[t] = newDict[t];
+            }
+
         }
 
-        public bool ableToGoDown(int x, int y)
-        {
-            return (y + 1 < height && (board[x][y+1] == null ||!board[x][y + 1].val));
-        }
 
         public bool ableToGoDown(Particle p)
         {
@@ -144,13 +154,6 @@ namespace The_Game_of_Life_2
 
         }
 
-        public bool ableToGoBL(int x, int y)
-        {
-
-
-            return (y+1 < height && x - 1 >= 0 && (board[x-1][y + 1] == null ||  !board[x - 1][y + 1].val));
-            
-        }
         public bool ableToGoBL(Particle p)
         {
 
@@ -161,10 +164,6 @@ namespace The_Game_of_Life_2
 
         }
         
-        public bool ableToGoBR(int x, int y)
-        {
-            return (y+1 < height && x + 1 < width && (board[x+1][y + 1] == null || !board[x + 1][y + 1].val));
-        }
         public bool ableToGoBR(Particle p)
         {
             Tuple<int, int> t = new Tuple<int, int>(p.x + 1, p.y + 1);

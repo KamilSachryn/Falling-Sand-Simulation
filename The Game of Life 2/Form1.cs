@@ -211,11 +211,13 @@ namespace The_Game_of_Life_2
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    if (board.dict.ContainsKey(new Tuple<int, int>(coordinates.X, coordinates.Y)))
+                    Tuple<int, int> t = new Tuple<int, int>(coordinates.X, coordinates.Y);
+                    if (board.dict.ContainsKey(t))
                     {
                         //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
                         //board.board[coordinates.X][coordinates.Y].val = false;
                         board.particles.Remove(board.board[coordinates.X][coordinates.Y]);
+                        board.dict.Remove(t);
                     }
                     else
                     {
@@ -295,11 +297,15 @@ namespace The_Game_of_Life_2
                         if (Control.ModifierKeys == Keys.Shift)
                         {
                             //enable = false;
-                            board.particles.Remove(board.board[row][col]);
+                            //board.particles.Remove(board.board[row][col]);
+
+                            board.dict.Remove(new Tuple<int, int>(coordinates.X, coordinates.Y));
 
                         }
 
-                        board.particles.Add(new Particle(row, col, true));
+                        Particle newPart = new Particle(row, col, true);
+                        board.particles.Add(newPart);
+                        board.dict[newPart.getTuple()] = newPart;
                         //board.board[row][col].val = enable;
                     }
                 }
@@ -311,7 +317,11 @@ namespace The_Game_of_Life_2
                     case MouseButtons.Left:
                         //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
                         //board.board[coordinates.X][coordinates.Y].val = true;
-                        board.particles.Add(new Particle(coordinates.X, coordinates.Y, true));
+                        //board.particles.Add(new Particle(coordinates.X, coordinates.Y, true));
+
+                        Particle newPart = new Particle(coordinates.X, coordinates.Y, true);
+                        board.particles.Add(newPart);
+                        board.dict[newPart.getTuple()] = newPart;
                         break;
 
                 }
