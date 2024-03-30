@@ -211,7 +211,7 @@ namespace The_Game_of_Life_2
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    if (board.board[coordinates.X][coordinates.Y] == null)
+                    if (board.dict.ContainsKey(new Tuple<int, int>(coordinates.X, coordinates.Y)))
                     {
                         //Console.WriteLine(coordinates.X + ", " + coordinates.Y);
                         //board.board[coordinates.X][coordinates.Y].val = false;

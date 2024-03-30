@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Xml.Schema;
 
 namespace The_Game_of_Life_2
@@ -22,6 +23,8 @@ namespace The_Game_of_Life_2
         public List<List<Particle>> board = new List<List<Particle>>();
         Random rand = new Random();
         public List<Particle> particles = new List<Particle>();
+
+        public Dictionary<Tuple<int, int>, Particle> dict = new Dictionary<Tuple<int, int>, Particle>();
 
 
         ParticleSameCoords comparer = new ParticleSameCoords();
@@ -71,6 +74,12 @@ namespace The_Game_of_Life_2
             //List<List<Particle>> newBoard = kamiClone(board);
             //List<List<Particle>> prototypeBoard = new List<List<Particle>>();
             //List<List<Particle>> newBoard = DeepCopy(board);
+
+            dict = new Dictionary<Tuple<int, int>, Particle>();
+            foreach(Particle p in particles)
+            {
+                dict[new Tuple<int, int>(p.x, p.y)] = p;
+            }
 
             foreach (Particle p in particles)
             {
@@ -127,19 +136,28 @@ namespace The_Game_of_Life_2
 
         public bool ableToGoDown(Particle p)
         {
+            Tuple<int, int> t = new Tuple<int, int>(p.x, p.y+1);
+            bool f = dict.ContainsKey(t);
 
-            return (p.y + 1 < height && !particles.Contains(new Particle(p.x, p.y + 1, true), comparer));
+            //return (p.y + 1 < height && !particles.Contains(new Particle(p.x, p.y + 1, true), comparer));
+            return (p.y + 1 < height && !f  );
 
         }
 
         public bool ableToGoBL(int x, int y)
         {
+
+
             return (y+1 < height && x - 1 >= 0 && (board[x-1][y + 1] == null ||  !board[x - 1][y + 1].val));
             
         }
         public bool ableToGoBL(Particle p)
         {
-            return (p.y + 1 < height && p.x - 1 >= 0 && !particles.Contains(new Particle(p.x - 1, p.y + 1, true), comparer));
+
+            Tuple<int, int> t = new Tuple<int, int>(p.x - 1, p.y + 1);
+            bool f = dict.ContainsKey(t);
+
+            return (p.y + 1 < height && p.x - 1 >= 0 && !f);
 
         }
         
@@ -149,7 +167,10 @@ namespace The_Game_of_Life_2
         }
         public bool ableToGoBR(Particle p)
         {
-            return (p.y + 1 < height && p.x + 1 >= 0 && !particles.Contains(new Particle(p.x + 1, p.y + 1, true), comparer));
+            Tuple<int, int> t = new Tuple<int, int>(p.x + 1, p.y + 1);
+            bool f = dict.ContainsKey(t);
+
+            return (p.y + 1 < height && p.x + 1 >= 0 && !f);
         }
 
 
