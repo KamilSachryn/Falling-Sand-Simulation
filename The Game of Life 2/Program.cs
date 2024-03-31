@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace The_Game_of_Life_2
+namespace Sand_Simulation
 {
     static class Program
     {

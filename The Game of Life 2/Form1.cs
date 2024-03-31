@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace The_Game_of_Life_2
+namespace Sand_Simulation
 {
     public partial class Form1 : Form
     {

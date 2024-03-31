@@ -1,5 +1,5 @@
 ﻿
-namespace The_Game_of_Life_2
+namespace Sand_Simulation
 {
     partial class Form1
     {

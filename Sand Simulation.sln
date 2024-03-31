@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The Game of Life 2", "The Game of Life 2\The Game of Life 2.csproj", "{C1120AAD-0C95-4A98-8A8F-151D3E39B61F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sand Simulation", "The Game of Life 2\Sand Simulation.csproj", "{C1120AAD-0C95-4A98-8A8F-151D3E39B61F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

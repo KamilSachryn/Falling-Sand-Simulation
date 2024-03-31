@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace The_Game_of_Life_2.Properties
+namespace Sand_Simulation.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.

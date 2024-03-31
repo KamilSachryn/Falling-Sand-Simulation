@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Xml.Schema;
 
-namespace The_Game_of_Life_2
+namespace Sand_Simulation
 {
     class Board
     {
