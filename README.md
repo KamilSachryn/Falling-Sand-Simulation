@@ -20,4 +20,4 @@ Once a board is set you can either Tick the simulation by one step, or begin a l
 
 
 
-![](https://imgur.com/pzC89Gg.gif))
+![](https://i.imgur.com/x77OC1K.gif)
